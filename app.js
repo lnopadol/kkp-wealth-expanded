@@ -11,76 +11,76 @@
   ------------------------------------------ */
   var HOLDINGS = [
     /* Equity sleeve — Local Equity */
-    { product: "VAYU1", details: "VAYU1", target: 1.13, assetClass: "Equity", sleeve: "Equity", thematic: null },
-    { product: "PTT", details: "PTT.BK", target: 2.06, assetClass: "Equity", sleeve: "Equity", thematic: null },
+    { product: "VAYU1", details: "VAYU1", target: 1.13, assetClass: "Equity", sleeve: "Equity", thematic: null, expReturn: 8.5, maxDD: -35 },
+    { product: "PTT", details: "PTT.BK", target: 2.06, assetClass: "Equity", sleeve: "Equity", thematic: null, expReturn: 7.0, maxDD: -40 },
     /* Equity sleeve — Global Equity */
-    { product: "Various Global Stocks", details: "GLOBAL", target: 1.55, assetClass: "Equity", sleeve: "Equity", thematic: null },
+    { product: "Various Global Stocks", details: "GLOBAL", target: 1.55, assetClass: "Equity", sleeve: "Equity", thematic: null, expReturn: 9.0, maxDD: -30 },
 
     /* Mandate — Offshore (KKP Balanced Standard) */
-    { product: "SPDR Portfolio S&P 500 ETF", details: "SPLG.P", target: 5.26, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Vanguard S&P 500 ETF", details: "VOO.P", target: 2.80, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares MSCI USA Quality Factor ETF", details: "QUAL.BATS", target: 0.15, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Vanguard Russell 2000 ETF", details: "VTWO.O", target: 0.38, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares Europe Index (IE) Instl Dis USD", details: "IE00B4L8GV30", target: 1.91, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares Japan Index (IE) D Acc USD", details: "IE00BD0NCS18", target: 0.64, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares EmergMkts Idx (IE) D Acc USD", details: "IE00BYWYC907", target: 1.17, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares Dev RI Elt Idx (IE) D Acc $", details: "IE000LUZEWK5", target: 0.28, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares Global Infrastructure ETF", details: "IGF.O", target: 0.28, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares 20+ Year Treasury Bond ETF", details: "TLT.P", target: 1.27, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "State Street Glb Aggt Bd Idx I USD Hdg", details: "LU0956450620", target: 1.25, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "iShares Scrn Gl Corp Bd Idx Ins USD H A", details: "IE000JWH7DS4", target: 3.10, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "SSGA Stt Strt EM Hrd Ccy Govt Bd Idx I USD", details: "LU2407009567", target: 0.64, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "GSF II GS Tact Tilt Overlay IP USD Acc", details: "LU2322936241", target: 1.70, assetClass: "Alternative", sleeve: "Mandate", thematic: null },
-    { product: "Cash in United States Dollar", details: "CASH.USD", target: 0.42, assetClass: "Cash", sleeve: "Mandate", thematic: null },
+    { product: "SPDR Portfolio S&P 500 ETF", details: "SPLG.P", target: 5.26, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 10.5, maxDD: -34 },
+    { product: "Vanguard S&P 500 ETF", details: "VOO.P", target: 2.80, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 10.5, maxDD: -34 },
+    { product: "iShares MSCI USA Quality Factor ETF", details: "QUAL.BATS", target: 0.15, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 11.0, maxDD: -28 },
+    { product: "Vanguard Russell 2000 ETF", details: "VTWO.O", target: 0.38, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 9.0, maxDD: -41 },
+    { product: "iShares Europe Index (IE) Instl Dis USD", details: "IE00B4L8GV30", target: 1.91, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.5, maxDD: -33 },
+    { product: "iShares Japan Index (IE) D Acc USD", details: "IE00BD0NCS18", target: 0.64, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.0, maxDD: -30 },
+    { product: "iShares EmergMkts Idx (IE) D Acc USD", details: "IE00BYWYC907", target: 1.17, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.5, maxDD: -38 },
+    { product: "iShares Dev RI Elt Idx (IE) D Acc $", details: "IE000LUZEWK5", target: 0.28, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 6.0, maxDD: -35 },
+    { product: "iShares Global Infrastructure ETF", details: "IGF.O", target: 0.28, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.5, maxDD: -30 },
+    { product: "iShares 20+ Year Treasury Bond ETF", details: "TLT.P", target: 1.27, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.5, maxDD: -39 },
+    { product: "State Street Glb Aggt Bd Idx I USD Hdg", details: "LU0956450620", target: 1.25, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 2.5, maxDD: -15 },
+    { product: "iShares Scrn Gl Corp Bd Idx Ins USD H A", details: "IE000JWH7DS4", target: 3.10, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.5, maxDD: -14 },
+    { product: "SSGA Stt Strt EM Hrd Ccy Govt Bd Idx I USD", details: "LU2407009567", target: 0.64, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 4.5, maxDD: -18 },
+    { product: "GSF II GS Tact Tilt Overlay IP USD Acc", details: "LU2322936241", target: 1.70, assetClass: "Alternative", sleeve: "Mandate", thematic: null, expReturn: 4.0, maxDD: -10 },
+    { product: "Cash in United States Dollar", details: "CASH.USD", target: 0.42, assetClass: "Cash", sleeve: "Mandate", thematic: null, expReturn: 2.0, maxDD: 0 },
 
     /* Mandate — Onshore (KKP Moderate THB) */
-    { product: "Brown Advisory Global Leaders", details: "IE00BG0R3926", target: 0.42, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Dodge & Cox Worldwide", details: "IE00B54PRV58", target: 0.26, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Robeco Global Stars", details: "LU2080584019", target: 0.41, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "BlackRock Advantage US", details: "IE00BFZP7V49", target: 0.44, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "JPM US Select", details: "LU0248005711", target: 0.44, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Eleva European Selection", details: "LU1331971256", target: 0.21, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Invesco S&P 500 UCITS ETF", details: "IE00B3YCGJ38", target: 1.22, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "iShares MSCI USA Quality", details: "US46432F3394", target: 0.11, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Amundi Index MSCI Europe", details: "LU1437015735", target: 0.29, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Nomura Japan Strategic", details: "IE00BW38TS53", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Robeco Emerging Markets", details: "LU0478762148", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "RBC Emerging Markets", details: "LU2986377153", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Kempen Global Small-Cap", details: "LU1894035184", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "DWS Invest Global Infrastructure", details: "LU2046587650", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "Principal Global Real Estate", details: "IE00B62LQD71", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null },
-    { product: "JPM Global Aggregate Bond", details: "LU0430493998", target: 1.73, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "PIMCO GIS Global Bond", details: "IE0002461055", target: 1.73, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "SSGA Global Agg Bond", details: "LU0956450620_ON", target: 2.77, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "iShares USD Treasury 20+yr", details: "IE00BFM6TC58", target: 0.65, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "Amundi Global Corporate Bond", details: "LU3097925054", target: 1.35, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "PGIM Global Corporate Bond", details: "IE00BFLQZJ56", target: 1.35, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "Neuberger Berman EM Debt", details: "IE00B99K6R29", target: 0.33, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null },
-    { product: "GSF II GS Tact Tilt Overlay", details: "LU0721525060", target: 1.14, assetClass: "Alternative", sleeve: "Mandate", thematic: null },
-    { product: "GS Alternative Trend", details: "LU1103308471", target: 0.33, assetClass: "Alternative", sleeve: "Mandate", thematic: null },
-    { product: "Cash USD", details: "CASH.USD_ON", target: 0.16, assetClass: "Cash", sleeve: "Mandate", thematic: null },
+    { product: "Brown Advisory Global Leaders", details: "IE00BG0R3926", target: 0.42, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 10.0, maxDD: -30 },
+    { product: "Dodge & Cox Worldwide", details: "IE00B54PRV58", target: 0.26, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 9.5, maxDD: -35 },
+    { product: "Robeco Global Stars", details: "LU2080584019", target: 0.41, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 9.5, maxDD: -30 },
+    { product: "BlackRock Advantage US", details: "IE00BFZP7V49", target: 0.44, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 10.0, maxDD: -32 },
+    { product: "JPM US Select", details: "LU0248005711", target: 0.44, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 9.0, maxDD: -33 },
+    { product: "Eleva European Selection", details: "LU1331971256", target: 0.21, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 8.0, maxDD: -28 },
+    { product: "Invesco S&P 500 UCITS ETF", details: "IE00B3YCGJ38", target: 1.22, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 10.5, maxDD: -34 },
+    { product: "iShares MSCI USA Quality", details: "US46432F3394", target: 0.11, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 11.0, maxDD: -28 },
+    { product: "Amundi Index MSCI Europe", details: "LU1437015735", target: 0.29, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.5, maxDD: -33 },
+    { product: "Nomura Japan Strategic", details: "IE00BW38TS53", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.5, maxDD: -30 },
+    { product: "Robeco Emerging Markets", details: "LU0478762148", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 8.0, maxDD: -38 },
+    { product: "RBC Emerging Markets", details: "LU2986377153", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 8.0, maxDD: -38 },
+    { product: "Kempen Global Small-Cap", details: "LU1894035184", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 8.5, maxDD: -38 },
+    { product: "DWS Invest Global Infrastructure", details: "LU2046587650", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 7.0, maxDD: -28 },
+    { product: "Principal Global Real Estate", details: "IE00B62LQD71", target: 0.16, assetClass: "Equity", sleeve: "Mandate", thematic: null, expReturn: 5.5, maxDD: -38 },
+    { product: "JPM Global Aggregate Bond", details: "LU0430493998", target: 1.73, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.0, maxDD: -14 },
+    { product: "PIMCO GIS Global Bond", details: "IE0002461055", target: 1.73, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.0, maxDD: -13 },
+    { product: "SSGA Global Agg Bond", details: "LU0956450620_ON", target: 2.77, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 2.5, maxDD: -15 },
+    { product: "iShares USD Treasury 20+yr", details: "IE00BFM6TC58", target: 0.65, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.5, maxDD: -39 },
+    { product: "Amundi Global Corporate Bond", details: "LU3097925054", target: 1.35, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.5, maxDD: -14 },
+    { product: "PGIM Global Corporate Bond", details: "IE00BFLQZJ56", target: 1.35, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 3.5, maxDD: -14 },
+    { product: "Neuberger Berman EM Debt", details: "IE00B99K6R29", target: 0.33, assetClass: "Fixed Income", sleeve: "Mandate", thematic: null, expReturn: 5.0, maxDD: -20 },
+    { product: "GSF II GS Tact Tilt Overlay", details: "LU0721525060", target: 1.14, assetClass: "Alternative", sleeve: "Mandate", thematic: null, expReturn: 4.0, maxDD: -10 },
+    { product: "GS Alternative Trend", details: "LU1103308471", target: 0.33, assetClass: "Alternative", sleeve: "Mandate", thematic: null, expReturn: 3.5, maxDD: -12 },
+    { product: "Cash USD", details: "CASH.USD_ON", target: 0.16, assetClass: "Cash", sleeve: "Mandate", thematic: null, expReturn: 2.0, maxDD: 0 },
 
     /* Alternative sleeve */
-    { product: "Vista Equity Partners Fund VIII", details: "BCAP-VISPE22BUI", target: 3.22, assetClass: "Private Equity", sleeve: "Alternative", thematic: null },
-    { product: "Lazard Global Listed Infrastructure Equity Fund", details: "IE00B3X5FG30", target: 2.06, assetClass: "Alternative", sleeve: "Alternative", thematic: null },
-    { product: "Onshore Fund of Hedge Funds", details: "FoHF", target: 2.58, assetClass: "Alternative", sleeve: "Alternative", thematic: null },
-    { product: "KKR Private Markets Equity Fund", details: "KKR-KPRIME", target: 3.09, assetClass: "Private Equity", sleeve: "Alternative", thematic: null },
-    { product: "Gold Bullions", details: "GOLD", target: 14.43, assetClass: "Commodities", sleeve: "Alternative", thematic: null },
+    { product: "Vista Equity Partners Fund VIII", details: "BCAP-VISPE22BUI", target: 3.22, assetClass: "Private Equity", sleeve: "Alternative", thematic: null, expReturn: 15.0, maxDD: -25 },
+    { product: "Lazard Global Listed Infrastructure Equity Fund", details: "IE00B3X5FG30", target: 2.06, assetClass: "Alternative", sleeve: "Alternative", thematic: null, expReturn: 8.5, maxDD: -28 },
+    { product: "Onshore Fund of Hedge Funds", details: "FoHF", target: 2.58, assetClass: "Alternative", sleeve: "Alternative", thematic: null, expReturn: 5.0, maxDD: -15 },
+    { product: "KKR Private Markets Equity Fund", details: "KKR-KPRIME", target: 3.09, assetClass: "Private Equity", sleeve: "Alternative", thematic: null, expReturn: 12.0, maxDD: -20 },
+    { product: "Gold Bullions", details: "GOLD", target: 14.43, assetClass: "Commodities", sleeve: "Alternative", thematic: null, expReturn: 8.0, maxDD: -33 },
 
     /* Satellite sleeve */
-    { product: "iShares U.S. Medical Devices ETF", details: "IHI", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "MedTech" },
-    { product: "Columbia Threadneedle Global Technology", details: "LU0444971666", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Technology" },
-    { product: "iShares Semiconductor ETF", details: "SOXX", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Technology" },
-    { product: "iShares Russell 2000 ETF", details: "IWM", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Small Cap" },
-    { product: "iShares MSCI India ETF", details: "INDA", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "India" },
-    { product: "Robeco Indian Equities I USD", details: "LU0944707735", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "India" },
-    { product: "Goldman Sachs Europe CORE Equity (Unhedged)", details: "LU1856271447", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe" },
-    { product: "Goldman Sachs Europe CORE Equity (Hedged)", details: "LU0234682044", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe" },
-    { product: "Wellington Strategic European Equity Fund", details: "IE00B6TYHG95", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe" },
-    { product: "iShares STOXX Europe 600 UCITS ETF", details: "STOXX", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe" },
+    { product: "iShares U.S. Medical Devices ETF", details: "IHI", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "MedTech", expReturn: 10.0, maxDD: -30 },
+    { product: "Columbia Threadneedle Global Technology", details: "LU0444971666", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Technology", expReturn: 12.0, maxDD: -38 },
+    { product: "iShares Semiconductor ETF", details: "SOXX", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Technology", expReturn: 18.0, maxDD: -45 },
+    { product: "iShares Russell 2000 ETF", details: "IWM", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Small Cap", expReturn: 9.0, maxDD: -41 },
+    { product: "iShares MSCI India ETF", details: "INDA", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "India", expReturn: 9.0, maxDD: -35 },
+    { product: "Robeco Indian Equities I USD", details: "LU0944707735", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "India", expReturn: 10.0, maxDD: -35 },
+    { product: "Goldman Sachs Europe CORE Equity (Unhedged)", details: "LU1856271447", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe", expReturn: 8.0, maxDD: -33 },
+    { product: "Goldman Sachs Europe CORE Equity (Hedged)", details: "LU0234682044", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe", expReturn: 8.0, maxDD: -30 },
+    { product: "Wellington Strategic European Equity Fund", details: "IE00B6TYHG95", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe", expReturn: 9.0, maxDD: -32 },
+    { product: "iShares STOXX Europe 600 UCITS ETF", details: "STOXX", target: 0.52, assetClass: "Equity", sleeve: "Satellite", thematic: "Europe", expReturn: 7.5, maxDD: -33 },
 
     /* Cash sleeve */
-    { product: "Fixed Savings", details: "SAVINGS", target: 27.20, assetClass: "Cash", sleeve: "Cash", thematic: null }
+    { product: "Fixed Savings", details: "SAVINGS", target: 27.20, assetClass: "Cash", sleeve: "Cash", thematic: null, expReturn: 2.5, maxDD: 0 }
   ];
 
   var SLEEVE_ORDER = ["Equity", "Mandate", "Alternative", "Satellite", "Cash"];
@@ -586,7 +586,11 @@
     var tbody = document.getElementById("holdings-tbody");
     tbody.innerHTML = HOLDINGS.map(function (h) {
       var sc = SLEEVE_COLORS[h.sleeve] || "#9b9a97";
-      return "<tr><td><strong>" + h.product + "</strong></td><td style=\"font-family:monospace;font-size:var(--text-xs)\">" + h.details + "</td><td><span class=\"tag\" style=\"background:" + sc + "18;color:" + sc + "\">" + h.sleeve + "</span></td><td><span class=\"tag tag--neutral\">" + h.assetClass + "</span></td><td class=\"num\">" + fmtPctRaw(h.target) + "</td></tr>";
+      var erCls = (h.expReturn || 0) >= 8 ? "positive" : (h.expReturn || 0) >= 5 ? "" : "negative";
+      var ddCls = "negative";
+      var erVal = h.expReturn != null ? (h.expReturn >= 0 ? "+" : "") + h.expReturn.toFixed(1) + "%" : "—";
+      var ddVal = h.maxDD != null ? h.maxDD.toFixed(0) + "%" : "—";
+      return "<tr><td><strong>" + h.product + "</strong></td><td style=\"font-family:monospace;font-size:var(--text-xs)\">" + h.details + "</td><td><span class=\"tag\" style=\"background:" + sc + "18;color:" + sc + "\">" + h.sleeve + "</span></td><td><span class=\"tag tag--neutral\">" + h.assetClass + "</span></td><td class=\"num\">" + fmtPctRaw(h.target) + "</td><td class=\"num " + erCls + "\">" + erVal + "</td><td class=\"num " + ddCls + "\">" + ddVal + "</td></tr>";
     }).join("");
   }
 
@@ -607,6 +611,8 @@
             case "sleeve": va = a.sleeve; vb = b.sleeve; break;
             case "assetClass": va = a.assetClass; vb = b.assetClass; break;
             case "target": va = a.target; vb = b.target; break;
+            case "expReturn": va = a.expReturn || 0; vb = b.expReturn || 0; break;
+            case "maxDD": va = a.maxDD || 0; vb = b.maxDD || 0; break;
             default: va = 0; vb = 0;
           }
           if (typeof va === "string") return asc ? vb.localeCompare(va) : va.localeCompare(vb);

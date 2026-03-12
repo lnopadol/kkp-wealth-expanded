@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KKP Wealth Expanded Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="KKP Expanded Logo">
+        <rect x="2" y="2" width="28" height="28" rx="6" stroke="var(--accent)" stroke-width="2.5"/>
+        <path d="M8 8v16M8 16l8-8M8 16l8 8" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 8v16" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="24" cy="12" r="2" fill="var(--accent)"/>
+      </svg>
+      <span class="logo-text">KKP Expanded</span>
+      <button class="theme-toggle" id="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle theme">
+        <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.3 3.3l1.4 1.4M13.3 13.3l1.4 1.4M3.3 14.7l1.4-1.4M13.3 4.7l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 10.3A6.5 6.5 0 017.7 3a7 7 0 107.3 7.3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <nav>
+      <ul class="nav-list">
+        <li><button class="nav-btn active" data-tab="overview" aria-current="page">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="1" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="10" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="10" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+          Overview</button></li>
+        <li><button class="nav-btn" data-tab="structure">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v4M9 6H4v4M9 6h5v4M4 10v4h3M13 10v4h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Structure</button></li>
+        <li><button class="nav-btn" data-tab="assetmix">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="10" width="4" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="7" y="6" width="4" height="11" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="2" width="4" height="15" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+          Asset Mix</button></li>
+        <li><button class="nav-btn" data-tab="geography">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.5"/><ellipse cx="9" cy="9" rx="3.5" ry="7.5" stroke="currentColor" stroke-width="1.2"/><line x1="1.5" y1="9" x2="16.5" y2="9" stroke="currentColor" stroke-width="1.2"/></svg>
+          Geography</button></li>
+        <li><button class="nav-btn" data-tab="themes">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="6" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/></svg>
+          Themes</button></li>
+        <li><button class="nav-btn" data-tab="learn">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v3l1.5 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Learn</button></li>
+        <li><button class="nav-btn" data-tab="backtest">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 14L6 6l3 4 3-6 4 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 16h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Backtest</button></li>
+        <li><button class="nav-btn" data-tab="projection">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 15 L6 10 L10 12 L16 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Projection</button></li>
+        <li><button class="nav-btn" data-tab="lostdecade">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v6l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 14.5l-1 1M14.5 14.5l1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Lost Decade</button></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-meta">Managed Portfolio</div>
+      <div class="sidebar-meta">Last updated: Mar 2026</div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main" id="main-content">
+    <!-- Mobile Tab Bar -->
+    <div class="mobile-tab-bar" id="mobile-tab-bar">
+      <button class="mobile-tab active" data-tab="overview">Overview</button>
+      <button class="mobile-tab" data-tab="structure">Structure</button>
+      <button class="mobile-tab" data-tab="assetmix">Asset Mix</button>
+      <button class="mobile-tab" data-tab="geography">Geography</button>
+      <button class="mobile-tab" data-tab="themes">Themes</button>
+      <button class="mobile-tab" data-tab="learn">Learn</button>
+      <button class="mobile-tab" data-tab="backtest">Backtest</button>
+      <button class="mobile-tab" data-tab="projection">Projection</button>
+      <button class="mobile-tab" data-tab="lostdecade">Lost Decade</button>
+    </div>
+
+    <!-- Tab: Overview -->
+    <section class="tab-content active" id="tab-overview">
+      <div class="page-header">
+        <h1>Portfolio Overview</h1>
+        <p class="page-subtitle">59 holdings across 6 sleeves &mdash; KKP Wealth Expanded managed portfolio (Port 1)</p>
+      </div>
+      <div class="card concept-card">
+        <div class="concept-header">
+          <svg class="concept-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2 class="card-title" style="margin-bottom:0">The Idea Behind This Portfolio</h2>
+        </div>
+        <p class="concept-intro">This is a KKP Wealth institutional managed portfolio designed for high-net-worth THB investors. It combines multiple mandate services and direct holdings across six distinct sleeves &mdash; each serving a clear purpose in building a diversified, globally balanced portfolio with enhanced inflation protection and capital preservation through significant gold and cash allocations.</p>
+        <div class="concept-sleeves">
+          <div class="concept-sleeve">
+            <div class="concept-sleeve-dot" style="background:#437a22"></div>
+            <div>
+              <div class="concept-sleeve-name">Equity (4.74%)</div>
+              <div class="concept-sleeve-desc">Local Thai equity via VAYU1 and PTT, plus a small global stocks allocation for direct market exposure.</div>
+            </div>
+          </div>
+          <div class="concept-sleeve">
+            <div class="concept-sleeve-dot" style="background:#2d7ec7"></div>
+            <div>
+              <div class="concept-sleeve-name">Mandate (37.52%)</div>
+              <div class="concept-sleeve-desc">KKP Balanced Standard (21.21% offshore) and KKP Moderate THB (16.31% onshore) &mdash; managed mandates providing diversified global exposure through equities, bonds, alternatives, and cash.</div>
+            </div>
+          </div>
+          <div class="concept-sleeve">
+            <div class="concept-sleeve-dot" style="background:#7c5cbf"></div>
+            <div>
+              <div class="concept-sleeve-name">Alternative (25.38%)</div>
+              <div class="concept-sleeve-desc">Physical gold bullions (14.43%), private equity via Vista and KKR K-PRIME, global listed infrastructure, and fund of hedge funds &mdash; providing inflation protection, diversification, and illiquidity premium.</div>
+            </div>
+          </div>
+          <div class="concept-sleeve">
+            <div class="concept-sleeve-dot" style="background:#c49a2a"></div>
+            <div>
+              <div class="concept-sleeve-name">Satellite (5.15%)</div>
+              <div class="concept-sleeve-desc">Thematic equity bets across MedTech, Technology, Small Cap, India, and Europe &mdash; tactical growth at ~0.52% per position.</div>
+            </div>
+          </div>
+          <div class="concept-sleeve">
+            <div class="concept-sleeve-dot" style="background:#9b9a97"></div>
+            <div>
+              <div class="concept-sleeve-name">Cash (27.20%)</div>
+              <div class="concept-sleeve-desc">Fixed savings deposits providing capital preservation, liquidity, and stable income in the current rate environment.</div>
+            </div>
+          </div>
+        </div>
+        <p class="concept-footer-note">The expanded portfolio achieves global diversification through KKP's mandate services, complemented by a substantial gold allocation for inflation protection, private equity for return enhancement, and fixed savings for capital preservation and liquidity.</p>
+      </div>
+
+      <div class="kpi-grid" id="kpi-grid"></div>
+      <div class="content-grid content-grid--overview">
+        <div class="card">
+          <h2 class="card-title">Allocation by Sleeve</h2>
+          <div class="chart-container chart-container--donut">
+            <canvas id="chart-sleeve-donut"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Holdings by Asset Class</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-holdings-bar"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Full Holdings Detail</h2>
+        <div class="table-wrapper">
+          <table class="data-table" id="holdings-table">
+            <thead>
+              <tr>
+                <th data-sort="product">Product</th>
+                <th data-sort="details">Details / Ticker</th>
+                <th data-sort="sleeve">Sleeve</th>
+                <th data-sort="assetClass">Asset Class</th>
+                <th data-sort="target" class="num">Target %</th>
+              </tr>
+            </thead>
+            <tbody id="holdings-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Structure -->
+    <section class="tab-content" id="tab-structure">
+      <div class="page-header">
+        <h1>Portfolio Structure</h1>
+        <p class="page-subtitle">Nested view: Sleeves &rarr; Mandates &rarr; Underlying holdings</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text">This page reveals <strong>how the portfolio is structured</strong>. The 21.21% Offshore Mandate and 16.31% Onshore Mandate each contain many underlying holdings managed by KKP's mandate services. The 25.38% Alternative sleeve includes gold bullions, private equity, infrastructure, and hedge funds. Click any sleeve to expand and see every holding inside it.</p>
+      </div>
+      <div id="structure-container"></div>
+    </section>
+
+    <!-- Tab: Asset Mix -->
+    <section class="tab-content" id="tab-assetmix">
+      <div class="page-header">
+        <h1>Asset Class Mix</h1>
+        <p class="page-subtitle">Aggregate asset class breakdown across all sleeves</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text">This page aggregates all 59 holdings into six core asset classes: <strong>Equity</strong>, <strong>Fixed Income</strong>, <strong>Alternative</strong>, <strong>Commodities</strong>, <strong>Private Equity</strong>, and <strong>Cash</strong>. The charts show both the overall mix and how each sleeve contributes to each asset class.</p>
+      </div>
+      <div class="content-grid content-grid--2col">
+        <div class="card">
+          <h2 class="card-title">Aggregate Asset Class</h2>
+          <div class="chart-container chart-container--donut">
+            <canvas id="chart-asset-donut"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Asset Class by Sleeve</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-asset-by-sleeve"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="content-grid content-grid--2col">
+        <div class="card">
+          <h2 class="card-title">Equity Sub-Breakdown</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-equity-sub"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Fixed Income Sub-Breakdown</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-fi-sub"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Geography -->
+    <section class="tab-content" id="tab-geography">
+      <div class="page-header">
+        <h1>Geographic Exposure</h1>
+        <p class="page-subtitle">Estimated geographic allocation across all holdings</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text">This page estimates <strong>where in the world</strong> the portfolio's money is invested. Geographic weights are approximated based on each fund's known regional focus. Note: Gold (14.43%) and Cash (27.20%) are classified as "Global/Non-Geographic" since they have no specific regional tilt.</p>
+      </div>
+      <div class="content-grid content-grid--2col">
+        <div class="card">
+          <h2 class="card-title">Geographic Allocation</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-geo-bar"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Regional Breakdown</h2>
+          <div class="chart-container chart-container--donut">
+            <canvas id="chart-region-donut"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Geography Detail</h2>
+        <div class="table-wrapper">
+          <table class="data-table" id="geo-table">
+            <thead>
+              <tr>
+                <th>Region</th>
+                <th class="num">Estimated %</th>
+                <th>Key Contributors</th>
+              </tr>
+            </thead>
+            <tbody id="geo-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Themes -->
+    <section class="tab-content" id="tab-themes">
+      <div class="page-header">
+        <h1>Satellite Themes</h1>
+        <p class="page-subtitle">5.15% thematic equity allocation across 5 themes and 10 holdings</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text">The <strong>Satellite sleeve</strong> allocates 5.15% of the portfolio to thematic equity bets. Each position is sized at ~0.52% &mdash; small enough to limit risk but large enough to capture meaningful upside from high-conviction themes.</p>
+      </div>
+      <div class="themes-overview" id="themes-overview"></div>
+      <div class="content-grid content-grid--2col">
+        <div class="card">
+          <h2 class="card-title">Theme Allocation</h2>
+          <div class="chart-container chart-container--donut">
+            <canvas id="chart-themes-donut"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Holdings per Theme</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-themes-bar"></canvas>
+          </div>
+        </div>
+      </div>
+      <div id="themes-detail"></div>
+    </section>
+
+    <!-- Tab: Learn -->
+    <section class="tab-content" id="tab-learn">
+      <div class="page-header">
+        <h1>Learn About Your Holdings</h1>
+        <p class="page-subtitle">Plain-language explanations of every holding, grouped by sleeve</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text">Each card below explains <strong>what a holding actually does</strong> in everyday language. You'll see which sleeve it belongs to, its target weight, and a brief description of its role in the portfolio.</p>
+      </div>
+      <div id="learn-grid" class="learn-grid"></div>
+    </section>
+
+    <!-- Tab: Backtest -->
+    <section class="tab-content" id="tab-backtest">
+      <div class="page-header">
+        <h1>10-Year Backtest</h1>
+        <p class="page-subtitle">Simulated portfolio performance 2016&ndash;2025 using historical asset class returns</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text">This backtest simulates how the portfolio <strong>would have performed</strong> over the last 10 years using actual historical returns for each asset class proxy. Each of the 59 holdings is mapped to its closest benchmark, and the portfolio return is computed using current target weights. Gold (~13% avg annual return) and cash (~2%) significantly influence the expanded portfolio's risk-return profile.</p>
+      </div>
+      <div class="kpi-grid" id="backtest-kpi-grid"></div>
+      <div class="card">
+        <h2 class="card-title">Cumulative Growth of 100</h2>
+        <div class="chart-container chart-container--wide">
+          <canvas id="chart-backtest-cumulative"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Year-by-Year Returns</h2>
+        <div class="table-wrapper">
+          <table class="data-table" id="backtest-table">
+            <thead>
+              <tr>
+                <th class="num">Year</th>
+                <th class="num">Portfolio %</th>
+                <th class="num">Portfolio Index</th>
+                <th class="num">S&P 500 %</th>
+                <th class="num">S&P 500 Index</th>
+                <th class="num">MSCI World %</th>
+              </tr>
+            </thead>
+            <tbody id="backtest-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Estimated Rolling Volatility</h2>
+        <div class="chart-container chart-container--tall">
+          <canvas id="chart-backtest-vol"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Projection -->
+    <section class="tab-content" id="tab-projection">
+      <div class="page-header">
+        <h1>Forward Projection</h1>
+        <p class="page-subtitle">20-year growth projection with Monte Carlo fan chart</p>
+      </div>
+      <div class="intro-panel">
+        <p class="intro-panel-text"><strong>Compounding</strong> is when your returns earn their own returns &mdash; the most powerful force in long-term investing. This page shows deterministic scenarios plus a Monte Carlo-style probability fan chart based on estimated portfolio volatility (~8%) and expected return (~6.5%). The lower volatility reflects the portfolio's 27% cash and 14% gold allocations.</p>
+      </div>
+      <div class="card compounding-input-card">
+        <div class="compounding-controls">
+          <div class="input-group">
+            <label for="investment-input">Total Investment (THB)</label>
+            <input type="text" id="investment-input" value="10,000,000" class="investment-input" inputmode="numeric">
+          </div>
+          <div class="input-group">
+            <label class="toggle-label">
+              <input type="checkbox" id="inflation-toggle"> Adjust for inflation (~3% p.a.)
+            </label>
+          </div>
+          <div class="scenario-kpis" id="scenario-kpis"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Monte Carlo Fan Chart (20 Years)</h2>
+        <div class="chart-container chart-container--wide">
+          <canvas id="chart-montecarlo"></canvas>
+        </div>
+      </div>
+      <div class="content-grid content-grid--3col">
+        <div class="card scenario-card scenario-card--base">
+          <div class="scenario-label">Base Case</div>
+          <div class="scenario-rate" id="base-rate"></div>
+          <div class="scenario-final" id="base-final"></div>
+          <div class="scenario-gain" id="base-gain"></div>
+        </div>
+        <div class="card scenario-card scenario-card--boost">
+          <div class="scenario-label">Dollar Erosion Boost</div>
+          <div class="scenario-rate" id="boost-rate"></div>
+          <div class="scenario-final" id="boost-final"></div>
+          <div class="scenario-gain" id="boost-gain"></div>
+        </div>
+        <div class="card scenario-card scenario-card--stress">
+          <div class="scenario-label">Conservative / Stress</div>
+          <div class="scenario-rate" id="stress-rate"></div>
+          <div class="scenario-final" id="stress-final"></div>
+          <div class="scenario-gain" id="stress-gain"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Strategy Comparison (20 Years)</h2>
+        <div class="chart-container chart-container--wide">
+          <canvas id="chart-comparison"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Year-by-Year Projection (Base Case)</h2>
+        <div class="table-wrapper">
+          <table class="data-table" id="compounding-table">
+            <thead>
+              <tr>
+                <th class="num">Year</th>
+                <th class="num">Beginning Balance</th>
+                <th class="num">Annual Return</th>
+                <th class="num">Ending Balance</th>
+              </tr>
+            </thead>
+            <tbody id="compounding-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Lost Decade -->
+    <section class="tab-content" id="tab-lostdecade">
+      <div class="page-header">
+        <h1>Lost Decade Analysis</h1>
+        <p class="page-subtitle">Portfolio resilience under prolonged adverse market environments</p>
+      </div>
+
+      <!-- A. What is a Lost Decade -->
+      <div class="card concept-card">
+        <div class="concept-header">
+          <svg class="concept-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.3 3.2L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.2a2 2 0 00-3.4 0z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <h2 class="card-title" style="margin-bottom:0">What is a Lost Decade?</h2>
+        </div>
+        <p class="concept-intro">A Lost Decade is a prolonged period (10+ years) when major equity indices deliver zero or negative real returns. Historical examples include Japan 1990&ndash;2010, the US 2000&ndash;2010, and the UK 1970s. Key characteristics: high valuations at entry, rising inflation, policy errors, geopolitical disruption, and currency instability. The expanded portfolio&rsquo;s 14.43% gold and 27.20% cash allocations significantly improve resilience in stagflation and dollar crisis scenarios.</p>
+      </div>
+
+      <!-- B. Scenario Analysis -->
+      <div class="card">
+        <h2 class="card-title">Scenario Analysis: Three Lost Decade Variants</h2>
+        <div class="table-wrapper">
+          <table class="data-table" id="scenario-analysis-table">
+            <thead>
+              <tr>
+                <th>Portfolio Sleeve</th>
+                <th class="num">Stagflation</th>
+                <th class="num">Secular Stagnation</th>
+                <th class="num">Dollar Crisis</th>
+              </tr>
+            </thead>
+            <tbody id="scenario-analysis-tbody"></tbody>
+          </table>
+        </div>
+        <div class="ld-scenario-descriptions">
+          <div class="ld-scenario-desc">
+            <strong>Stagflation (1970s-style):</strong> High inflation + low growth. Winners: gold, commodities, infrastructure, EM debt. Losers: long-duration bonds, growth equity. Gold (14.43%) is a major beneficiary.
+          </div>
+          <div class="ld-scenario-desc">
+            <strong>Secular Stagnation (Japan 1990s-style):</strong> Deflation + asset price decline. Winners: long bonds, cash, quality. Losers: equities, commodities. Cash (27.20%) provides significant buffer.
+          </div>
+          <div class="ld-scenario-desc">
+            <strong>Dollar Crisis (de-dollarization):</strong> USD devaluation, capital flight. Winners: gold, non-USD assets, EM. Losers: US treasuries, USD cash. Gold (14.43%) is a strong hedge.
+          </div>
+        </div>
+      </div>
+
+      <!-- C. Portfolio Stress Test -->
+      <div class="card">
+        <h2 class="card-title">Portfolio Stress Test (10-Year Simulation)</h2>
+        <div class="chart-container chart-container--wide">
+          <canvas id="chart-ld-stress"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Stress Test Year-by-Year</h2>
+        <div class="table-wrapper">
+          <table class="data-table" id="ld-stress-table">
+            <thead>
+              <tr>
+                <th class="num">Year</th>
+                <th class="num">Base Case</th>
+                <th class="num">Stagflation</th>
+                <th class="num">Stagnation</th>
+                <th class="num">Dollar Crisis</th>
+              </tr>
+            </thead>
+            <tbody id="ld-stress-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- D. Vulnerability Radar -->
+      <div class="content-grid content-grid--2col">
+        <div class="card">
+          <h2 class="card-title">Vulnerability Assessment</h2>
+          <div class="chart-container chart-container--tall">
+            <canvas id="chart-ld-radar"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Resilience Scores</h2>
+          <div id="ld-resilience-list"></div>
+        </div>
+      </div>
+
+      <!-- E. Recommendations -->
+      <div class="card ld-reco-card">
+        <h2 class="card-title">Recommendations for Improving Lost Decade Resilience</h2>
+        <div id="ld-recommendations"></div>
+      </div>
+    </section>
+
+    <footer class="dashboard-footer">
+      <span>KKP Wealth Expanded Dashboard &mdash; For informational purposes only</span>
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </footer>
+  </main>
+</div>
+
+<script src="./app.js" defer></script>
+</body>
+</html>

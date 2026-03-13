@@ -482,7 +482,7 @@
   /* ------------------------------------------
      NAVIGATION
   ------------------------------------------ */
-  var tabInitialized = { overview: true, structure: false, assetmix: false, geography: false, themes: false, learn: false, backtest: false, projection: false, lostdecade: false };
+  var tabInitialized = { overview: true, structure: false, assetmix: false, geography: false, themes: false, learn: false, backtest: false, projection: false, cashflow: false, lostdecade: false };
 
   function initNavigation() {
     document.querySelectorAll(".nav-btn").forEach(function (btn) {
@@ -512,7 +512,8 @@
       case "learn": renderLearnCards(); break;
       case "backtest": renderBacktest(); break;
       case "projection": renderProjection(); initCompoundingInput(); break;
-      case "lostdecade": renderLostDecade(); break;
+      case "cashflow": renderCashFlow(); initCashFlowInputs(); break;
+      case "lostdecade": renderIranWar(); break;
     }
   }
 
@@ -1050,85 +1051,110 @@
   }
 
   /* ------------------------------------------
-     TAB 9: LOST DECADE
+     TAB 9: IRAN WAR THREAT (replaces Lost Decade)
   ------------------------------------------ */
-  function renderLostDecade() {
+  function renderIranWar() {
     var cc = getChartColors();
 
-    // B. Scenario Analysis Table — expanded with gold and cash
-    var scenarios = [
-      { name: "Equity (Thai + Global)", stagflation: 2, stagnation: -4, dollar: 7 },
-      { name: "Mandate — Equity", stagflation: -1, stagnation: -2, dollar: 3 },
-      { name: "Mandate — Bonds", stagflation: -1, stagnation: 5, dollar: -1 },
-      { name: "Alternative (Gold Bullions)", stagflation: 15, stagnation: -2, dollar: 18 },
-      { name: "Alternative (Infrastructure)", stagflation: 5, stagnation: 2, dollar: 6 },
-      { name: "Alternative (Hedge Funds)", stagflation: 4, stagnation: 3, dollar: 5 },
-      { name: "Alternative (Private Equity)", stagflation: 2, stagnation: -1, dollar: 4 },
-      { name: "Satellite Equity", stagflation: -3, stagnation: -5, dollar: 5 },
-      { name: "Cash (Fixed Savings)", stagflation: 1, stagnation: 2, dollar: 2 }
+    // B. Impact Heatmap
+    var heatmapData = [
+      { name: "Gold Bullions", weight: "14.43%", st: "+15-25%", stCls: "positive", mt: "+30-50%", mtCls: "positive", lt: "+60-100%", ltCls: "positive" },
+      { name: "Fixed Savings / Cash", weight: "27.20%", st: "Stable", stCls: "positive", mt: "Stable", mtCls: "positive", lt: "Eroded by inflation", ltCls: "mixed" },
+      { name: "S&P 500 ETFs", weight: "~9.3%", st: "-3 to -7%", stCls: "negative", mt: "-5 to -12%", mtCls: "negative", lt: "-10 to -20%", ltCls: "negative" },
+      { name: "Europe Equity", weight: "~5.7%", st: "-5 to -10%", stCls: "negative", mt: "-10 to -18%", mtCls: "negative", lt: "-15 to -25%", ltCls: "negative" },
+      { name: "EM Equity", weight: "~1.5%", st: "-6 to -12%", stCls: "negative", mt: "-10 to -20%", mtCls: "negative", lt: "-15 to -30%", ltCls: "negative" },
+      { name: "PTT", weight: "2.06%", st: "+5 to +15%", stCls: "positive", mt: "Mixed", mtCls: "mixed", lt: "-5 to -15%", ltCls: "negative" },
+      { name: "Thai Equity / VAYU1", weight: "1.13%", st: "-5 to -10%", stCls: "negative", mt: "-8 to -15%", mtCls: "negative", lt: "-10 to -20%", ltCls: "negative" },
+      { name: "India ETFs", weight: "~1.04%", st: "-8 to -12%", stCls: "negative", mt: "-10 to -18%", mtCls: "negative", lt: "-15 to -25%", ltCls: "negative" },
+      { name: "Semiconductors (SOXX)", weight: "0.52%", st: "-5 to -10%", stCls: "negative", mt: "-8 to -15%", mtCls: "negative", lt: "-10 to -20%", ltCls: "negative" },
+      { name: "Long Treasuries", weight: "~1.92%", st: "+3 to +5%", stCls: "positive", mt: "Mixed", mtCls: "mixed", lt: "-5 to -10%", ltCls: "negative" },
+      { name: "Global/Corp Bonds", weight: "~12.4%", st: "-1 to -3%", stCls: "negative", mt: "-3 to -6%", mtCls: "negative", lt: "-5 to -10%", ltCls: "negative" },
+      { name: "Private Equity", weight: "6.31%", st: "Neutral", stCls: "neutral", mt: "Neutral", mtCls: "neutral", lt: "-5 to -10%", ltCls: "mixed" },
+      { name: "Infrastructure", weight: "~2.50%", st: "Mixed", stCls: "mixed", mt: "+2 to +5%", mtCls: "positive", lt: "Mixed", ltCls: "mixed" },
+      { name: "GS Tactical / Alt Trend", weight: "~2.84%", st: "+3 to +8%", stCls: "positive", mt: "+5 to +12%", mtCls: "positive", lt: "+5 to +10%", ltCls: "positive" },
+      { name: "Hedge Funds", weight: "2.58%", st: "+1 to +4%", stCls: "positive", mt: "+3 to +6%", mtCls: "positive", lt: "+2 to +5%", ltCls: "positive" }
     ];
 
-    var tbody = document.getElementById("scenario-analysis-tbody");
-    tbody.innerHTML = scenarios.map(function (s) {
-      function fmtS(v) { var cls = v >= 0 ? "positive" : "negative"; return '<td class="num ' + cls + '">' + (v >= 0 ? "+" : "") + v + '%</td>'; }
-      return "<tr><td><strong>" + s.name + "</strong></td>" + fmtS(s.stagflation) + fmtS(s.stagnation) + fmtS(s.dollar) + "</tr>";
+    var hmTbody = document.getElementById("iw-heatmap-tbody");
+    hmTbody.innerHTML = heatmapData.map(function (row) {
+      function cellCls(c) { return "iw-cell-" + c; }
+      return '<tr><td><strong>' + row.name + '</strong></td><td class="num">' + row.weight + '</td><td class="num ' + cellCls(row.stCls) + '">' + row.st + '</td><td class="num ' + cellCls(row.mtCls) + '">' + row.mt + '</td><td class="num ' + cellCls(row.ltCls) + '">' + row.lt + '</td></tr>';
     }).join("");
 
-    // C. Stress Test — expanded portfolio performs better in adverse scenarios
-    var baseVar = [8.0, 5.5, -1.0, 9.0, 5.5, 7.0, -2.0, 7.5, 6.0, 6.5];
-    var stagVar = [3.0, 1.5, 2.0, 2.5, 1.0, 2.5, 1.5, 2.0, 3.0, 2.5];
-    var stagnVar = [2.5, 1.5, 2.0, 1.5, 1.8, 1.0, 2.0, 1.5, 2.0, 2.0];
-    var dollarVar = [5.5, 4.0, 5.0, 4.5, 4.0, 5.0, 3.5, 4.5, 4.0, 3.5];
+    // C. War Scenario Stress Test (10 years, indexed from 100)
+    // Yearly returns for each scenario
+    var noWarR   = [6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5];
+    var ceaseR   = [-2,  12,  10,   9,   8,  7.5,  7,   7,   7,   7];   // dip then snap back, CAGR ~7.5%
+    var prolongR = [-5,   2,   3,   5,   5,  5.5,  6,   6,   6.5, 6.5]; // pain then slow recovery, CAGR ~4.5%
+    var stage3R  = [-8,  -3,   1,   2,   3,   4,   4,   5,   5,   5];   // deep pain, slow grind, CAGR ~2.5%
 
-    var baseIdx = [100], stagIdx = [100], stagnIdx = [100], dollarIdx = [100];
+    var noWarIdx = [100], ceaseIdx = [100], prolongIdx = [100], stage3Idx = [100];
     var stressLabels = ["Start"];
-
     for (var i = 0; i < 10; i++) {
       stressLabels.push("Year " + (i + 1));
-      baseIdx.push(baseIdx[i] * (1 + baseVar[i] / 100));
-      stagIdx.push(stagIdx[i] * (1 + stagVar[i] / 100));
-      stagnIdx.push(stagnIdx[i] * (1 + stagnVar[i] / 100));
-      dollarIdx.push(dollarIdx[i] * (1 + dollarVar[i] / 100));
+      noWarIdx.push(noWarIdx[i] * (1 + noWarR[i] / 100));
+      ceaseIdx.push(ceaseIdx[i] * (1 + ceaseR[i] / 100));
+      prolongIdx.push(prolongIdx[i] * (1 + prolongR[i] / 100));
+      stage3Idx.push(stage3Idx[i] * (1 + stage3R[i] / 100));
     }
 
-    var ctx1 = document.getElementById("chart-ld-stress").getContext("2d");
-    if (charts.ldStress) charts.ldStress.destroy();
-    charts.ldStress = new Chart(ctx1, {
+    var ctx1 = document.getElementById("chart-iw-stress").getContext("2d");
+    if (charts.iwStress) charts.iwStress.destroy();
+    charts.iwStress = new Chart(ctx1, {
       type: "line",
       data: {
         labels: stressLabels,
         datasets: [
-          { label: "Base Case (~6.5%)", data: baseIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#20808D", borderWidth: 2.5, tension: 0.3, pointRadius: 2 },
-          { label: "Stagflation (~2.2%)", data: stagIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#A84B2F", borderWidth: 2, tension: 0.3, pointRadius: 2, borderDash: [5, 3] },
-          { label: "Secular Stagnation (~1.8%)", data: stagnIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#c49a2a", borderWidth: 2, tension: 0.3, pointRadius: 2, borderDash: [5, 3] },
-          { label: "Dollar Crisis (~4.4%)", data: dollarIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#7c5cbf", borderWidth: 2, tension: 0.3, pointRadius: 2, borderDash: [3, 3] }
+          { label: "No War (~6.5% CAGR)", data: noWarIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#20808D", borderWidth: 2.5, tension: 0.3, pointRadius: 2 },
+          { label: "Ceasefire (~7.5% CAGR)", data: ceaseIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#437a22", borderWidth: 2, tension: 0.3, pointRadius: 2, borderDash: [5, 3] },
+          { label: "Prolonged War (~4.5% CAGR)", data: prolongIdx.map(function (v) { return +v.toFixed(1); }), borderColor: "#c49a2a", borderWidth: 2, tension: 0.3, pointRadius: 2, borderDash: [5, 3] },
+          { label: "Stage 3 Quagmire (~2.5% CAGR)", data: stage3Idx.map(function (v) { return +v.toFixed(1); }), borderColor: "#A84B2F", borderWidth: 2, tension: 0.3, pointRadius: 2, borderDash: [3, 3] }
         ]
       },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "top" } }, scales: { x: { grid: { color: cc.grid } }, y: { grid: { color: cc.grid } } } }
     });
 
     // Stress table
-    var stressTbody = document.getElementById("ld-stress-tbody");
+    var stressTbody = document.getElementById("iw-stress-tbody");
     stressTbody.innerHTML = "";
     for (var si = 0; si < 10; si++) {
-      stressTbody.innerHTML += "<tr><td class=\"num\">" + (si + 1) + "</td><td class=\"num\">" + baseIdx[si + 1].toFixed(1) + "</td><td class=\"num\">" + stagIdx[si + 1].toFixed(1) + "</td><td class=\"num\">" + stagnIdx[si + 1].toFixed(1) + "</td><td class=\"num\">" + dollarIdx[si + 1].toFixed(1) + "</td></tr>";
+      stressTbody.innerHTML += '<tr><td class="num">' + (si + 1) + '</td><td class="num">' + noWarIdx[si + 1].toFixed(1) + '</td><td class="num">' + ceaseIdx[si + 1].toFixed(1) + '</td><td class="num">' + prolongIdx[si + 1].toFixed(1) + '</td><td class="num">' + stage3Idx[si + 1].toFixed(1) + '</td></tr>';
     }
 
-    // D. Radar Chart — improved scores due to gold and cash
+    // D. Warning Signs
+    var warnings = [
+      { name: "Oil Price >$110/barrel", status: "yellow", watch: "Brent at ~$92, rising. Thailand danger zone at $110.", action: "Trim Thai equity" },
+      { name: "Strait of Hormuz closed >30 days", status: "red", watch: "Currently closed. 200+ tankers at anchor. 20% global oil blocked.", action: "Defensive posture" },
+      { name: "Stage 3: US ground forces deployed", status: "yellow", watch: "75% probability per Pape. Watch troop deployments.", action: "Max defensive, add gold" },
+      { name: "Nuclear escalation signals", status: "green", watch: "Iran's 400kg enriched uranium stockpile. Monitor IAEA.", action: "Emergency rebalance" },
+      { name: "Terrorism spreading globally", status: "green", watch: "Iran's international networks. Tourism at risk.", action: "Exit satellite positions" },
+      { name: "China military involvement", status: "green", watch: "China benefits from US quagmire. Watch Taiwan strait.", action: "Flight to gold/USD cash" },
+      { name: "EM currency collapse", status: "yellow", watch: "MSCI EM -6% weekly. Capital outflows accelerating.", action: "Exit EM debt & equity" },
+      { name: "US fiscal strain / debt spiral", status: "yellow", watch: "Defense spending surge. Debt ceiling pressures.", action: "USD weakness benefits gold" },
+      { name: "Insurance market freeze (shipping)", status: "red", watch: "Tanker insurance rates surging. Trade disruption.", action: "Commodity spike hedge" },
+      { name: "Thai baht past 35/USD", status: "yellow", watch: "Baht weakened past 32/USD. Oil imports in USD.", action: "Offshore USD gains" }
+    ];
+
+    var warnEl = document.getElementById("iw-warnings-list");
+    warnEl.innerHTML = warnings.map(function (w) {
+      return '<div class="iw-warning-item"><div class="iw-warning-dot iw-warning-dot--' + w.status + '"></div><div class="iw-warning-name">' + w.name + '</div><div class="iw-warning-status iw-warning-status--' + w.status + '">' + w.status.toUpperCase() + '</div><div class="iw-warning-watch">' + w.watch + '</div><div class="iw-warning-action">' + w.action + '</div></div>';
+    }).join("");
+
+    // E. Radar Chart — Iran War Resilience
     var radarScores = {
-      "Inflation Protection": 8,
-      "Deflation Protection": 7,
-      "Currency Diversification": 7,
-      "Income Generation": 6,
-      "Liquidity": 8,
-      "Tail Risk Hedging": 7
+      "Oil Shock Protection": 6,
+      "Safe Haven Coverage": 9,
+      "Geographic Diversification": 7,
+      "Liquidity Reserve": 9,
+      "Currency Hedge": 6,
+      "Tail Risk Preparedness": 7
     };
     var radarLabels = Object.keys(radarScores);
     var radarValues = radarLabels.map(function (l) { return radarScores[l]; });
 
-    var ctx2 = document.getElementById("chart-ld-radar").getContext("2d");
-    if (charts.ldRadar) charts.ldRadar.destroy();
-    charts.ldRadar = new Chart(ctx2, {
+    var ctx2 = document.getElementById("chart-iw-radar").getContext("2d");
+    if (charts.iwRadar) charts.iwRadar.destroy();
+    charts.iwRadar = new Chart(ctx2, {
       type: "radar",
       data: {
         labels: radarLabels,
@@ -1149,27 +1175,420 @@
       }
     });
 
-    // Resilience list
-    var resEl = document.getElementById("ld-resilience-list");
+    // Resilience bars
+    var resEl = document.getElementById("iw-resilience-list");
     resEl.innerHTML = radarLabels.map(function (label) {
       var score = radarScores[label];
       var c = score <= 4 ? "#A84B2F" : score <= 6 ? "#c49a2a" : "#437a22";
       return '<div class="ld-resilience-item"><span class="ld-resilience-label">' + label + '</span><div class="ld-resilience-bar"><div class="ld-resilience-fill" style="width:' + (score * 10) + '%;background:' + c + '"></div></div><span class="ld-resilience-score">' + score + '/10</span></div>';
     }).join("");
 
-    // E. Recommendations — updated for expanded portfolio
+    // F. Recommendations
     var recos = [
-      { icon: "good", text: "<strong>Strength: Gold allocation (14.43%)</strong> \u2014 Provides excellent inflation protection and a strong hedge against dollar crises. Gold historically outperforms during stagflationary periods." },
-      { icon: "good", text: "<strong>Strength: Cash buffer (27.20%)</strong> \u2014 Fixed savings provide capital preservation, high liquidity, and deflation protection. This is a significant advantage in secular stagnation scenarios." },
-      { icon: "good", text: "<strong>Strength: Global diversification</strong> \u2014 Multiple mandates across geographies provide natural currency and market diversification." },
-      { icon: "good", text: "<strong>Strength: Private equity exposure (6.31%)</strong> \u2014 Vista and KKR provide uncorrelated returns and illiquidity premium that helps in prolonged low-return environments." },
-      { icon: "idea", text: "<strong>Consider:</strong> The large cash allocation (27.20%) could be partially redeployed into inflation-linked bonds (TIPS) during periods of rising inflation expectations." },
-      { icon: "idea", text: "<strong>Consider:</strong> Adding a small allocation to managed futures or trend-following strategies to improve tail-risk hedging further." }
+      { icon: "good", text: '<strong>Gold position (14.43%) is your strongest shield</strong> \u2014 JPMorgan targets $6,300/oz by end-2026. Gold has already surged to $5,400 and benefits from every escalation scenario.' },
+      { icon: "good", text: '<strong>Cash buffer (27.20%) provides optionality</strong> \u2014 Fully insulated from market volatility. Ready to deploy at ceasefire for bargain-hunting in beaten-down equities.' },
+      { icon: "warn", text: '<strong>European equity (~5.7%) is most vulnerable</strong> \u2014 Europe is \"super dependent on Middle East energy\" per CNBC. Consider trimming 2-3% and rotating into energy/commodities.' },
+      { icon: "warn", text: '<strong>Monitor PTT carefully</strong> \u2014 Benefits from elevated energy prices short-term, but Thai economy at risk if oil sustains above $110/barrel (NESDC danger zone).' },
+      { icon: "idea", text: '<strong>Add direct energy/commodity exposure (2-3%)</strong> \u2014 XLE, DJP, or GSG would provide a direct hedge against oil spike risk the portfolio currently lacks.' },
+      { icon: "idea", text: '<strong>Consider increasing gold to ~17%</strong> \u2014 Fund from European equity trim. Gold benefits in every war scenario and provides insurance against Stage 3 quagmire.' },
+      { icon: "idea", text: '<strong>Keep cash deployed in USD</strong> \u2014 Baht has weakened past 32/USD. Offshore USD holdings gain purchasing power as Thailand\'s oil import bill rises.' },
+      { icon: "warn", text: '<strong>EM debt holdings small but watch credit deterioration</strong> \u2014 Neuberger Berman EM Debt (0.33%) and SSGA EM Govt Bond (0.64%) could face widening spreads.' }
     ];
 
-    document.getElementById("ld-recommendations").innerHTML = recos.map(function (r) {
+    document.getElementById("iw-recommendations").innerHTML = recos.map(function (r) {
       return '<div class="ld-reco-item"><div class="ld-reco-icon ld-reco-icon--' + r.icon + '">' + (r.icon === "warn" ? "!" : r.icon === "good" ? "\u2713" : "\u2606") + '</div><div>' + r.text + '</div></div>';
     }).join("");
+  }
+
+  /* ------------------------------------------
+     TAB 10: CASH FLOW
+  ------------------------------------------ */
+
+  /* Contribution schedule: array of { fromYear, toYear, amount } */
+  var cfSchedule = [];
+  /* Per-year overrides: { 1: 500000, 5: 0, ... } */
+  var cfOverrides = {};
+
+  function getCashFlowInputs() {
+    var pvEl = document.getElementById("cf-portfolio-input");
+    var exEl = document.getElementById("cf-expense-input");
+    var infEl = document.getElementById("cf-inflation-input");
+    var retEl = document.getElementById("cf-return-input");
+    function parseComma(el) { return parseInt((el ? el.value : "0").replace(/[^0-9]/g, ""), 10) || 0; }
+    return {
+      portfolio: parseComma(pvEl),
+      expense: parseComma(exEl),
+      inflation: parseFloat(infEl ? infEl.value : "3") / 100,
+      returnRate: parseFloat(retEl ? retEl.value : "6.5") / 100
+    };
+  }
+
+  /* Resolve contribution for a given year: override > schedule > 0 */
+  function getContributionForYear(year) {
+    if (cfOverrides.hasOwnProperty(year)) return cfOverrides[year];
+    for (var i = 0; i < cfSchedule.length; i++) {
+      var s = cfSchedule[i];
+      if (year >= s.fromYear && year <= s.toYear) return s.amount;
+    }
+    return 0;
+  }
+
+  function computeCashFlow(p) {
+    var rows = [];
+    var balance = p.portfolio;
+    var totalWithdrawals = 0;
+    var totalContributions = 0;
+    var depletionYear = null;
+    for (var y = 1; y <= 30; y++) {
+      var beginning = balance;
+      var investReturn = beginning * p.returnRate;
+      var expense = p.expense * Math.pow(1 + p.inflation, y - 1);
+      var contribution = getContributionForYear(y);
+      var ending = beginning + investReturn + contribution - expense;
+      totalWithdrawals += expense;
+      totalContributions += contribution;
+      var isOverridden = cfOverrides.hasOwnProperty(y);
+      if (ending < 0 && depletionYear === null) depletionYear = y;
+      rows.push({ year: y, beginning: beginning, investReturn: investReturn, contribution: contribution, expense: expense, ending: ending, isOverridden: isOverridden });
+      balance = ending;
+    }
+    return { rows: rows, depletionYear: depletionYear, finalBalance: balance, totalWithdrawals: totalWithdrawals, totalContributions: totalContributions };
+  }
+
+  /* --- Schedule Builder --- */
+  function renderScheduleRows() {
+    var container = document.getElementById("cf-schedule-rows");
+    if (!container) return;
+    if (cfSchedule.length === 0) {
+      container.innerHTML = '<div class="cf-schedule-empty">No contribution periods defined. Click "Add Period" to start.</div>';
+    } else {
+      container.innerHTML = cfSchedule.map(function (s, idx) {
+        return '<div class="cf-schedule-row" data-idx="' + idx + '">' +
+          '<span class="cf-sched-label">Year</span>' +
+          '<input type="number" class="cf-sched-input cf-sched-input--year cf-sched-from" value="' + s.fromYear + '" min="1" max="30">' +
+          '<span class="cf-sched-dash">to</span>' +
+          '<input type="number" class="cf-sched-input cf-sched-input--year cf-sched-to" value="' + s.toYear + '" min="1" max="30">' +
+          '<span class="cf-sched-label">Amount</span>' +
+          '<input type="text" class="cf-sched-input cf-sched-input--amount cf-sched-amount" value="' + s.amount.toLocaleString("en-US") + '" inputmode="numeric">' +
+          '<span class="cf-sched-label" style="color:var(--text-muted);font-size:var(--text-xs)">THB/yr</span>' +
+          '<button class="cf-sched-remove" data-idx="' + idx + '" title="Remove this period">' +
+          '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+          '</button></div>';
+      }).join("");
+    }
+    renderScheduleSummary();
+    bindScheduleEvents();
+  }
+
+  function renderScheduleSummary() {
+    var summaryEl = document.getElementById("cf-schedule-summary");
+    if (!summaryEl) return;
+    if (cfSchedule.length === 0) {
+      summaryEl.innerHTML = 'No contributions scheduled. All 30 years default to \u0E3F0 unless overridden in the table below.';
+      return;
+    }
+    var parts = cfSchedule.map(function (s) {
+      if (s.fromYear === s.toYear) return 'Year ' + s.fromYear + ': \u0E3F' + s.amount.toLocaleString("en-US");
+      return 'Years ' + s.fromYear + '\u2013' + s.toYear + ': \u0E3F' + s.amount.toLocaleString("en-US") + '/yr';
+    });
+    var overrideCount = Object.keys(cfOverrides).length;
+    var overrideNote = overrideCount > 0 ? ' <span style="color:var(--accent)">(' + overrideCount + ' manual override' + (overrideCount > 1 ? 's' : '') + ' in table)</span>' : '';
+    summaryEl.innerHTML = parts.join(' &nbsp;|&nbsp; ') + overrideNote;
+  }
+
+  function bindScheduleEvents() {
+    var container = document.getElementById("cf-schedule-rows");
+    if (!container) return;
+
+    container.querySelectorAll(".cf-sched-from").forEach(function (el) {
+      el.addEventListener("change", function () {
+        var idx = parseInt(el.closest(".cf-schedule-row").getAttribute("data-idx"), 10);
+        cfSchedule[idx].fromYear = Math.max(1, Math.min(30, parseInt(el.value, 10) || 1));
+        el.value = cfSchedule[idx].fromYear;
+        renderScheduleSummary();
+        renderCashFlow();
+      });
+    });
+
+    container.querySelectorAll(".cf-sched-to").forEach(function (el) {
+      el.addEventListener("change", function () {
+        var idx = parseInt(el.closest(".cf-schedule-row").getAttribute("data-idx"), 10);
+        cfSchedule[idx].toYear = Math.max(1, Math.min(30, parseInt(el.value, 10) || 1));
+        el.value = cfSchedule[idx].toYear;
+        renderScheduleSummary();
+        renderCashFlow();
+      });
+    });
+
+    container.querySelectorAll(".cf-sched-amount").forEach(function (el) {
+      el.addEventListener("input", function () {
+        var idx = parseInt(el.closest(".cf-schedule-row").getAttribute("data-idx"), 10);
+        var raw = el.value.replace(/[^0-9]/g, "");
+        var num = parseInt(raw, 10) || 0;
+        cfSchedule[idx].amount = num;
+        var pos = el.selectionStart;
+        var oldLen = el.value.length;
+        el.value = num.toLocaleString("en-US");
+        var newLen = el.value.length;
+        el.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
+        renderScheduleSummary();
+        renderCashFlow();
+      });
+      el.addEventListener("focus", function () { el.select(); });
+    });
+
+    container.querySelectorAll(".cf-sched-remove").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var idx = parseInt(btn.getAttribute("data-idx"), 10);
+        cfSchedule.splice(idx, 1);
+        renderScheduleRows();
+        renderCashFlow();
+      });
+    });
+  }
+
+  function addScheduleRow() {
+    var lastTo = cfSchedule.length > 0 ? cfSchedule[cfSchedule.length - 1].toYear : 0;
+    var from = Math.min(lastTo + 1, 30);
+    var to = Math.min(from + 4, 30);
+    cfSchedule.push({ fromYear: from, toYear: to, amount: 0 });
+    renderScheduleRows();
+  }
+
+  /* --- Inline Editing for Contribution Column --- */
+  function startInlineEdit(td, year) {
+    if (td.querySelector(".cf-inline-input")) return;
+    var current = getContributionForYear(year);
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "cf-inline-input";
+    input.value = current.toLocaleString("en-US");
+    input.setAttribute("inputmode", "numeric");
+    td.textContent = "";
+    td.appendChild(input);
+    input.focus();
+    input.select();
+
+    function commit() {
+      var raw = input.value.replace(/[^0-9]/g, "");
+      var num = parseInt(raw, 10) || 0;
+      var scheduled = 0;
+      for (var i = 0; i < cfSchedule.length; i++) {
+        if (year >= cfSchedule[i].fromYear && year <= cfSchedule[i].toYear) { scheduled = cfSchedule[i].amount; break; }
+      }
+      if (num === scheduled) {
+        delete cfOverrides[year];
+      } else {
+        cfOverrides[year] = num;
+      }
+      renderScheduleSummary();
+      renderCashFlow();
+    }
+
+    input.addEventListener("blur", commit);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); input.blur(); }
+      if (e.key === "Escape") {
+        delete cfOverrides[year]; // revert
+        renderScheduleSummary();
+        renderCashFlow();
+      }
+    });
+    input.addEventListener("input", function () {
+      var pos = input.selectionStart;
+      var oldLen = input.value.length;
+      var raw = input.value.replace(/[^0-9]/g, "");
+      var num = parseInt(raw, 10) || 0;
+      input.value = num.toLocaleString("en-US");
+      var newLen = input.value.length;
+      input.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
+    });
+  }
+
+  function renderCashFlow() {
+    var p = getCashFlowInputs();
+    var cf = computeCashFlow(p);
+    var cc = getChartColors();
+
+    // KPI cards
+    var kpiGrid = document.getElementById("cf-kpi-grid");
+    var depLabel = cf.depletionYear ? ("Year " + cf.depletionYear) : "30+ years";
+    var depCls = cf.depletionYear ? "negative" : "positive";
+    var finalCls = cf.finalBalance >= 0 ? "positive" : "negative";
+    kpiGrid.innerHTML = [
+      { label: "Years Until Depletion", value: depLabel, cls: depCls },
+      { label: "Final Balance (Yr 30)", value: "\u0E3F" + fmt(cf.finalBalance, 0), cls: finalCls },
+      { label: "Total Withdrawals", value: "\u0E3F" + fmt(cf.totalWithdrawals, 0), cls: "negative" },
+      { label: "Total Contributions", value: "\u0E3F" + fmt(cf.totalContributions, 0), cls: "accent" }
+    ].map(function (k) { return '<div class="kpi-card"><span class="kpi-label">' + k.label + '</span><span class="kpi-value ' + k.cls + '">' + k.value + '</span></div>'; }).join("");
+
+    // Chart 1: Portfolio Balance
+    var balLabels = ["Year 0"];
+    var balData = [p.portfolio];
+    cf.rows.forEach(function (r) { balLabels.push("Year " + r.year); balData.push(Math.round(r.ending)); });
+
+    var ctx1 = document.getElementById("chart-cf-balance").getContext("2d");
+    if (charts.cfBalance) charts.cfBalance.destroy();
+
+    charts.cfBalance = new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: balLabels,
+        datasets: [
+          {
+            label: "Portfolio Balance",
+            data: balData,
+            borderColor: "#20808D",
+            borderWidth: 2.5,
+            tension: 0.3,
+            pointRadius: 2,
+            pointBackgroundColor: function(context) {
+              return (context.raw || 0) < 0 ? "#A84B2F" : "#20808D";
+            },
+            segment: {
+              borderColor: function(ctx) {
+                return (ctx.p0.parsed.y < 0 || ctx.p1.parsed.y < 0) ? "#A84B2F" : "#20808D";
+              }
+            },
+            fill: {
+              target: "origin",
+              above: "rgba(32,128,141,0.08)",
+              below: "rgba(168,75,47,0.12)"
+            }
+          },
+          {
+            label: "Zero Line",
+            data: balLabels.map(function() { return 0; }),
+            borderColor: "#A84B2F",
+            borderWidth: 1,
+            borderDash: [4, 4],
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: function (c) { if (c.datasetIndex === 1) return null; return "Balance: \u0E3F" + fmt(c.raw, 0); } } }
+        },
+        scales: {
+          x: { grid: { color: cc.grid } },
+          y: { grid: { color: cc.grid }, ticks: { callback: function (v) { return v >= 1000000 ? "\u0E3F" + (v / 1000000).toFixed(0) + "M" : v <= -1000000 ? "-\u0E3F" + (Math.abs(v) / 1000000).toFixed(0) + "M" : "\u0E3F" + fmt(v, 0); } } }
+        }
+      }
+    });
+
+    // Chart 2: Annual Cash Flow Breakdown (stacked bar)
+    var annLabels = cf.rows.map(function (r) { return "Yr " + r.year; });
+    var returnData = cf.rows.map(function (r) { return Math.round(r.investReturn); });
+    var contribData = cf.rows.map(function (r) { return Math.round(r.contribution); });
+    var expenseData = cf.rows.map(function (r) { return -Math.round(r.expense); });
+
+    var ctx2 = document.getElementById("chart-cf-annual").getContext("2d");
+    if (charts.cfAnnual) charts.cfAnnual.destroy();
+    charts.cfAnnual = new Chart(ctx2, {
+      type: "bar",
+      data: {
+        labels: annLabels,
+        datasets: [
+          { label: "Investment Return", data: returnData, backgroundColor: "#20808D", borderRadius: 2, borderSkipped: false },
+          { label: "Contribution", data: contribData, backgroundColor: "#2d7ec7", borderRadius: 2, borderSkipped: false },
+          { label: "Expense Withdrawal", data: expenseData, backgroundColor: "#A84B2F", borderRadius: 2, borderSkipped: false }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "top" },
+          tooltip: { callbacks: { label: function (c) { return c.dataset.label + ": \u0E3F" + fmt(c.raw, 0); } } }
+        },
+        scales: {
+          x: { stacked: true, grid: { display: false } },
+          y: { stacked: true, grid: { color: cc.grid }, ticks: { callback: function (v) { return v >= 1000000 ? "\u0E3F" + (v / 1000000).toFixed(0) + "M" : v <= -1000000 ? "-\u0E3F" + (Math.abs(v) / 1000000).toFixed(0) + "M" : "\u0E3F" + fmt(v, 0); } } }
+        }
+      }
+    });
+
+    // Table with editable contribution cells
+    var tbody = document.getElementById("cf-detail-tbody");
+    tbody.innerHTML = cf.rows.map(function (r) {
+      var balCls = r.ending >= 0 ? "positive" : "negative";
+      var contribDisplay = r.contribution > 0 ? '+\u0E3F' + fmt(r.contribution, 0) : '\u0E3F0';
+      var overriddenCls = r.isOverridden ? ' cf-overridden' : '';
+      return '<tr>' +
+        '<td class="num">' + r.year + '</td>' +
+        '<td class="num">\u0E3F' + fmt(r.beginning, 0) + '</td>' +
+        '<td class="num positive">+\u0E3F' + fmt(r.investReturn, 0) + '</td>' +
+        '<td class="num accent cf-contrib-cell' + overriddenCls + '" data-year="' + r.year + '">' + contribDisplay + '</td>' +
+        '<td class="num negative">-\u0E3F' + fmt(r.expense, 0) + '</td>' +
+        '<td class="num ' + balCls + '">\u0E3F' + fmt(r.ending, 0) + '</td>' +
+        '</tr>';
+    }).join("");
+
+    // Bind click events on contribution cells
+    tbody.querySelectorAll(".cf-contrib-cell").forEach(function (td) {
+      td.addEventListener("click", function () {
+        var year = parseInt(td.getAttribute("data-year"), 10);
+        startInlineEdit(td, year);
+      });
+    });
+  }
+
+  function initCashFlowInputs() {
+    var textInputs = ["cf-portfolio-input", "cf-expense-input"];
+    var numberInputs = ["cf-inflation-input", "cf-return-input"];
+
+    function updateAll() {
+      textInputs.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var raw = el.value.replace(/[^0-9]/g, "");
+        var num = parseInt(raw, 10) || 0;
+        el.value = num.toLocaleString("en-US");
+      });
+      renderCashFlow();
+    }
+
+    textInputs.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("input", function () {
+        var pos = el.selectionStart;
+        var oldLen = el.value.length;
+        updateAll();
+        var newLen = el.value.length;
+        el.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
+      });
+      el.addEventListener("focus", function () { el.select(); });
+    });
+
+    numberInputs.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("input", function () { renderCashFlow(); });
+      el.addEventListener("change", function () { renderCashFlow(); });
+    });
+
+    // Add Period button
+    var addBtn = document.getElementById("cf-add-schedule-row");
+    if (addBtn) {
+      addBtn.addEventListener("click", function () { addScheduleRow(); });
+    }
+
+    // Reset Overrides button
+    var resetBtn = document.getElementById("cf-reset-overrides");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", function () {
+        cfOverrides = {};
+        renderScheduleSummary();
+        renderCashFlow();
+      });
+    }
+
+    // Render initial schedule
+    renderScheduleRows();
   }
 
   /* ------------------------------------------
